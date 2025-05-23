@@ -1,5 +1,5 @@
-// @ts-ignore - Ignore MCP SDK import error during compilation
-import { McpServer } from '@modelcontextprotocol/sdk';
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { VideoService } from './services/video';
 import { TranscriptService } from './services/transcript';
 import { PlaylistService } from './services/playlist';
@@ -19,11 +19,10 @@ export async function startMcpServer() {
     const playlistService = new PlaylistService();
     const channelService = new ChannelService();
 
-    // Register video functions
-    server.addMethod({
-        name: 'videos.getVideo',
+    // Register video tools
+    server.tool('videos_getVideo', {
         description: 'Get detailed information about a YouTube video',
-        parameters: {
+        inputSchema: {
             type: 'object',
             properties: {
                 videoId: {
@@ -40,13 +39,29 @@ export async function startMcpServer() {
             },
             required: ['videoId'],
         },
-        handler: async (params) => videoService.getVideo(params),
+    }, async (params) => {
+        try {
+            const result = await videoService.getVideo(params);
+            return {
+                content: [{
+                    type: 'text',
+                    text: JSON.stringify(result, null, 2)
+                }]
+            };
+        } catch (error) {
+            return {
+                content: [{
+                    type: 'text',
+                    text: `Error: ${error instanceof Error ? error.message : String(error)}`
+                }],
+                isError: true
+            };
+        }
     });
 
-    server.addMethod({
-        name: 'videos.searchVideos',
+    server.tool('videos_searchVideos', {
         description: 'Search for videos on YouTube',
-        parameters: {
+        inputSchema: {
             type: 'object',
             properties: {
                 query: {
@@ -60,14 +75,30 @@ export async function startMcpServer() {
             },
             required: ['query'],
         },
-        handler: async (params) => videoService.searchVideos(params),
+    }, async (params) => {
+        try {
+            const result = await videoService.searchVideos(params);
+            return {
+                content: [{
+                    type: 'text',
+                    text: JSON.stringify(result, null, 2)
+                }]
+            };
+        } catch (error) {
+            return {
+                content: [{
+                    type: 'text',
+                    text: `Error: ${error instanceof Error ? error.message : String(error)}`
+                }],
+                isError: true
+            };
+        }
     });
 
-    // Register transcript functions
-    server.addMethod({
-        name: 'transcripts.getTranscript',
+    // Register transcript tools
+    server.tool('transcripts_getTranscript', {
         description: 'Get the transcript of a YouTube video',
-        parameters: {
+        inputSchema: {
             type: 'object',
             properties: {
                 videoId: {
@@ -81,14 +112,30 @@ export async function startMcpServer() {
             },
             required: ['videoId'],
         },
-        handler: async (params) => transcriptService.getTranscript(params),
+    }, async (params) => {
+        try {
+            const result = await transcriptService.getTranscript(params);
+            return {
+                content: [{
+                    type: 'text',
+                    text: JSON.stringify(result, null, 2)
+                }]
+            };
+        } catch (error) {
+            return {
+                content: [{
+                    type: 'text',
+                    text: `Error: ${error instanceof Error ? error.message : String(error)}`
+                }],
+                isError: true
+            };
+        }
     });
 
-    // Register channel functions
-    server.addMethod({
-        name: 'channels.getChannel',
+    // Register channel tools
+    server.tool('channels_getChannel', {
         description: 'Get information about a YouTube channel',
-        parameters: {
+        inputSchema: {
             type: 'object',
             properties: {
                 channelId: {
@@ -98,13 +145,29 @@ export async function startMcpServer() {
             },
             required: ['channelId'],
         },
-        handler: async (params) => channelService.getChannel(params),
+    }, async (params) => {
+        try {
+            const result = await channelService.getChannel(params);
+            return {
+                content: [{
+                    type: 'text',
+                    text: JSON.stringify(result, null, 2)
+                }]
+            };
+        } catch (error) {
+            return {
+                content: [{
+                    type: 'text',
+                    text: `Error: ${error instanceof Error ? error.message : String(error)}`
+                }],
+                isError: true
+            };
+        }
     });
 
-    server.addMethod({
-        name: 'channels.listVideos',
+    server.tool('channels_listVideos', {
         description: 'Get videos from a specific channel',
-        parameters: {
+        inputSchema: {
             type: 'object',
             properties: {
                 channelId: {
@@ -118,14 +181,30 @@ export async function startMcpServer() {
             },
             required: ['channelId'],
         },
-        handler: async (params) => channelService.listVideos(params),
+    }, async (params) => {
+        try {
+            const result = await channelService.listVideos(params);
+            return {
+                content: [{
+                    type: 'text',
+                    text: JSON.stringify(result, null, 2)
+                }]
+            };
+        } catch (error) {
+            return {
+                content: [{
+                    type: 'text',
+                    text: `Error: ${error instanceof Error ? error.message : String(error)}`
+                }],
+                isError: true
+            };
+        }
     });
 
-    // Register playlist functions
-    server.addMethod({
-        name: 'playlists.getPlaylist',
+    // Register playlist tools
+    server.tool('playlists_getPlaylist', {
         description: 'Get information about a YouTube playlist',
-        parameters: {
+        inputSchema: {
             type: 'object',
             properties: {
                 playlistId: {
@@ -135,13 +214,29 @@ export async function startMcpServer() {
             },
             required: ['playlistId'],
         },
-        handler: async (params) => playlistService.getPlaylist(params),
+    }, async (params) => {
+        try {
+            const result = await playlistService.getPlaylist(params);
+            return {
+                content: [{
+                    type: 'text',
+                    text: JSON.stringify(result, null, 2)
+                }]
+            };
+        } catch (error) {
+            return {
+                content: [{
+                    type: 'text',
+                    text: `Error: ${error instanceof Error ? error.message : String(error)}`
+                }],
+                isError: true
+            };
+        }
     });
 
-    server.addMethod({
-        name: 'playlists.getPlaylistItems',
+    server.tool('playlists_getPlaylistItems', {
         description: 'Get videos in a YouTube playlist',
-        parameters: {
+        inputSchema: {
             type: 'object',
             properties: {
                 playlistId: {
@@ -155,15 +250,33 @@ export async function startMcpServer() {
             },
             required: ['playlistId'],
         },
-        handler: async (params) => playlistService.getPlaylistItems(params),
+    }, async (params) => {
+        try {
+            const result = await playlistService.getPlaylistItems(params);
+            return {
+                content: [{
+                    type: 'text',
+                    text: JSON.stringify(result, null, 2)
+                }]
+            };
+        } catch (error) {
+            return {
+                content: [{
+                    type: 'text',
+                    text: `Error: ${error instanceof Error ? error.message : String(error)}`
+                }],
+                isError: true
+            };
+        }
     });
 
-    // Log the server info
-    console.log(`Starting YouTube MCP Server v1.0.0`);
-    console.log(`Server will validate YouTube API key when methods are called`);
+    // Create transport and connect
+    const transport = new StdioServerTransport();
+    await server.connect(transport);
     
-    // Start the server
-    await server.listen();
-    console.log('Server is listening for requests...');
+    // Log the server info
+    console.log(`YouTube MCP Server v1.0.0 started successfully`);
+    console.log(`Server will validate YouTube API key when tools are called`);
+    
     return server;
 }
