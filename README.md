@@ -31,26 +31,31 @@ A Model Context Protocol (MCP) server implementation for YouTube, enabling AI la
 
 ## Installation
 
-### Installing via Smithery
+### Quick Setup for Claude Desktop
 
-To install YouTube MCP Server for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@ZubeidHendricks/youtube):
-
+1. Install the package:
 ```bash
-npx -y @smithery/cli install @ZubeidHendricks/youtube --client claude
+npm install -g zubeid-youtube-mcp-server
 ```
 
-### Manual Installation
-```bash
-npm install zubeid-youtube-mcp-server
+2. Add to your Claude Desktop configuration (`~/Library/Application Support/Claude/claude_desktop_config.json` on macOS or `%APPDATA%\Claude\claude_desktop_config.json` on Windows):
+
+```json
+{
+  "mcpServers": {
+    "zubeid-youtube-mcp-server": {
+      "command": "zubeid-youtube-mcp-server",
+      "env": {
+        "YOUTUBE_API_KEY": "your_youtube_api_key_here"
+      }
+    }
+  }
+}
 ```
 
-## Configuration
-Set the following environment variables:
-* `YOUTUBE_API_KEY`: Your YouTube Data API key
-* `YOUTUBE_TRANSCRIPT_LANG`: Default language for transcripts (optional, defaults to 'en')
+### Alternative: Using NPX (No Installation Required)
 
-## Using with MCP Client
-Add this to your MCP client configuration (e.g. Claude Desktop):
+Add this to your Claude Desktop configuration:
 
 ```json
 {
@@ -59,12 +64,25 @@ Add this to your MCP client configuration (e.g. Claude Desktop):
       "command": "npx",
       "args": ["-y", "zubeid-youtube-mcp-server"],
       "env": {
-        "YOUTUBE_API_KEY": "<YOUR_API_KEY>"
+        "YOUTUBE_API_KEY": "your_youtube_api_key_here"
       }
     }
   }
 }
 ```
+
+### Installing via Smithery
+
+To install YouTube MCP Server for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@ZubeidHendricks/youtube):
+
+```bash
+npx -y @smithery/cli install @ZubeidHendricks/youtube --client claude
+```
+
+## Configuration
+Set the following environment variables:
+* `YOUTUBE_API_KEY`: Your YouTube Data API key (required)
+* `YOUTUBE_TRANSCRIPT_LANG`: Default language for transcripts (optional, defaults to 'en')
 ### Using with VS Code
 
 For one-click installation, click one of the install buttons below:
