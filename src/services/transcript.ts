@@ -1,5 +1,5 @@
 import { YoutubeTranscript } from "youtube-transcript";
-import { TranscriptParams, SearchTranscriptParams } from '../types';
+import { TranscriptParams, SearchTranscriptParams } from '../types.js';
 
 /**
  * Service for interacting with YouTube video transcripts

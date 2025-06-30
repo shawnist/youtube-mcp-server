@@ -4,10 +4,10 @@ import {
     CallToolRequestSchema,
     ListToolsRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
-import { VideoService } from './services/video';
-import { TranscriptService } from './services/transcript';
-import { PlaylistService } from './services/playlist';
-import { ChannelService } from './services/channel';
+import { VideoService } from './services/video.js';
+import { TranscriptService } from './services/transcript.js';
+import { PlaylistService } from './services/playlist.js';
+import { ChannelService } from './services/channel.js';
 import {
     VideoParams,
     SearchParams,
@@ -16,7 +16,7 @@ import {
     ChannelVideosParams,
     PlaylistParams,
     PlaylistItemsParams,
-} from './types';
+} from './types.js';
 
 export async function startMcpServer() {
     const server = new Server(

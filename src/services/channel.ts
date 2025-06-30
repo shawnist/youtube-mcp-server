@@ -1,5 +1,5 @@
 import { google } from 'googleapis';
-import { ChannelParams, ChannelVideosParams } from '../types';
+import { ChannelParams, ChannelVideosParams } from '../types.js';
 
 /**
  * Service for interacting with YouTube channels

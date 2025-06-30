@@ -1,5 +1,5 @@
 import { google } from 'googleapis';
-import { VideoParams, SearchParams, TrendingParams, RelatedVideosParams } from '../types';
+import { VideoParams, SearchParams, TrendingParams, RelatedVideosParams } from '../types.js';
 
 /**
  * Service for interacting with YouTube videos

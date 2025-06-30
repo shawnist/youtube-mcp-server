@@ -2,6 +2,7 @@
   "name": "zubeid-youtube-mcp-server",
   "version": "1.0.0",
   "description": "YouTube MCP Server Implementation",
+  "type": "module",
   "main": "dist/index.js",
   "bin": {
     "zubeid-youtube-mcp-server": "dist/cli.js"
@@ -12,9 +13,9 @@
     "LICENSE"
   ],
   "scripts": {
-    "start": "ts-node ./src/index.ts",
+    "start": "node ./dist/index.js",
     "build": "tsc",
-    "dev": "nodemon ./src/index.ts",
+    "dev": "nodemon --exec \"npm run build && npm start\" --ext ts",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {

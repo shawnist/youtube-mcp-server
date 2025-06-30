@@ -1,5 +1,5 @@
 import { google } from 'googleapis';
-import { PlaylistParams, PlaylistItemsParams, SearchParams } from '../types';
+import { PlaylistParams, PlaylistItemsParams, SearchParams } from '../types.js';
 
 /**
  * Service for interacting with YouTube playlists

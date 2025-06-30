@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { startMcpServer } from './server';
+import { startMcpServer } from './server.js';
 
 // Check for required environment variables
 if (!process.env.YOUTUBE_API_KEY) {
